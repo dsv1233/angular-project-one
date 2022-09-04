@@ -1,0 +1,368 @@
+
+<div class="row custom-wrapper">
+   <div class="container" >
+    <select
+        class="custom-select mb-3 item"
+        (change)="resetForm($event)"
+        [(ngModel)]="selectedItem">
+        <option *ngFor="let c of itemList">
+          {{ c }}
+        </option>
+      </select>
+   </div> 
+</div>
+
+
+<div class="row mx-2 mb-2">
+    <div class="col">
+      <span>VESSEL DETAILS</span>
+    </div>
+    <div class="col" style="text-align: right; ">
+      <label>
+        <select class="formselect">
+          <option>New Form</option>
+          <option>Existing Form</option>
+        </select>
+      </label>
+    </div>
+</div>
+<mat-divider class= "mx-3" ></mat-divider>
+
+<form [formGroup]="vesselForm" (change)="onChange($event)" #myform="ngForm">
+    <div *ngIf="selectedItem === 'NEW VESSEL'">
+        <div class="row mx-2 mt-4" >
+            <div class="col-3 fsize">
+                Vessel IMD: <input type="number" required formControlName="vessel_no" placeholder="Enter IMD" [ngClass]="{
+                    'has-danger': vesselForm.controls['vessel_no'].errors?.['required'] && vesselForm.controls['vessel_no'].invalid && vesselForm.controls['vessel_no'].touched,
+                    'has-success': vesselForm.controls['vessel_no'].valid
+                }">
+            </div>
+            <div class="col-3 fsize right" formGroupName="voyage_data">
+                <div formGroupName="vessel_details">
+                    Vessel Name: <input type="text" formControlName="vessel_name" placeholder="Enter Vessel Name" [ngClass]="{
+                        'has-danger': vesselName.errors?.['required'] && vesselName.invalid && vesselName.touched,
+                        'has-success': vesselName.valid
+                    }">
+                </div>
+            </div>
+            <div class="col-3 fsize right" >
+                <form [formGroup]="vesselForm" formGroupName="voyage_data">
+                    <div formGroupName="vessel_details">
+                        Vessel Type:
+                        <select
+                        class="custom-select mb-3"
+                        formControlName="vessel_type" [ngClass]="{
+                            'has-danger': vesselType.errors?.['required'] && vesselType.invalid && vesselType.touched,
+                            'has-success': vesselType.valid
+                        }">
+                            <option *ngFor="let c of vType" [ngValue]="c">
+                              {{ c }}
+                            </option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="col-3 fsize right" >
+                <form [formGroup]="vesselForm" formGroupName="voyage_data">
+                    <div formGroupName="vessel_details">
+                        Vessel Class:
+                        <select
+                        class="custom-select mb-3"
+                        formControlName="vessel_class" [ngClass]="{
+                            'has-danger': vesselClass.errors?.['required'] && vesselClass.invalid && vesselClass.touched,
+                            'has-success': vesselClass.valid
+                        }">
+                            <option *ngFor="let c of vClass" [ngValue]="c">
+                              {{ c }}
+                            </option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row mx-2 mt-2" formGroupName="voyage_data">
+            <div class="col-3 fsize" formGroupName="vessel_details">
+                Vessel Email: <input type="email" formControlName="vessel_email" placeholder="Enter Email" [ngClass]="{
+                    'has-danger': vesselEmail.errors?.['required'] && vesselEmail.invalid && vesselEmail.touched,
+                    'has-success': vesselEmail.valid
+                }">
+            </div>
+            <div class="col-3 fsize right" formGroupName="vessel_details">
+                Departure Date & Time:
+                <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+                <input matInput [ngxMatDatetimePicker]="picker" formControlName="departure_datetime" placeholder="Enter Date & Time" [max]="maxDate" [ngClass]="{
+                    'has-danger': vesselDeptTime.errors?.['required'] && vesselDeptTime.invalid && vesselDeptTime.touched,
+                    'has-success': vesselDeptTime.valid
+                }">
+                <ngx-mat-datetime-picker #picker [showSpinners]="true" [showSeconds]="false"
+                [stepHour]="1" [stepMinute]="1" [stepSecond]="1" [touchUi]="false"
+                [enableMeridian]="false">
+                </ngx-mat-datetime-picker>
+            </div>
+            <div class="col-3 fsize right" formGroupName="vessel_details">
+                Voyage Ref: <input #voyRef type="number"  formControlName="voyage_ref_no" placeholder="Voyage Ref.#" [ngClass]="{
+                    'has-danger': vesselVoyRef.errors?.['required'] && vesselVoyRef.invalid && vesselVoyRef.touched,
+                    'has-success': vesselVoyRef.valid
+                }">
+            </div>
+            <div class="col-3 fsize right">
+                <!--<form [formGroup]="vesselForm" formGroupName="voyage_data">-->
+                    <div formGroupName="vessel_details">
+                        Condition:
+                        <select
+                         class="custom-select mb-3"
+                         formControlName="condition" [ngClass]="{
+                            'has-danger': vesselCondition.errors?.['required'] && vesselCondition.invalid && vesselCondition.touched,
+                            'has-success': vesselCondition.valid
+                        }">
+                         <option *ngFor="let c of vCond" [ngValue]="c">
+                           {{ c }}
+                         </option>
+                        </select>
+                    </div>
+                <!--</form>-->
+            </div>
+            <div class="col-3 fsize">
+                <!--<form [formGroup]="vesselForm" formGroupName="voyage_data">-->
+                    <div formGroupName="vessel_details">
+                        Ownership Status:
+                        <select
+                         class="custom-select mb-3"
+                         formControlName="ownership_status" [ngClass]="{
+                            'has-danger': vesselOStatus.errors?.['required'] && vesselOStatus.invalid && vesselOStatus.touched,
+                            'has-success': vesselOStatus.valid
+                        }">
+                         <option *ngFor="let c of oStatus" [ngValue]="c">
+                           {{ c }}
+                         </option>
+                        </select>
+                    </div>
+                <!--</form>-->
+            </div>
+        </div>
+    </div>
+    <div *ngIf="selectedItem === 'ADXAXASX'" >
+        <div class="row mx-2 mt-2" formGroupName="voyage_data">
+            <div class="col-3 fsize" formGroupName="vessel_details">
+                Vessel Email: <input type="email" formControlName="vessel_email" placeholder="Enter Email" [ngClass]="{
+                    'has-danger': vesselEmail.errors?.['required'] && vesselEmail.invalid && vesselEmail.touched,
+                    'has-success': vesselEmail.valid
+                }">
+            </div>
+            <div class="col-3 fsize right" formGroupName="vessel_details">
+                Departure Date & Time:
+                <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+                <input matInput [ngxMatDatetimePicker]="picker" formControlName="departure_datetime" placeholder="Enter Date & Time" [max]="maxDate" [ngClass]="{
+                    'has-danger': vesselDeptTime.errors?.['required'] && vesselDeptTime.invalid && vesselDeptTime.touched,
+                    'has-success': vesselDeptTime.valid
+                }">
+                <ngx-mat-datetime-picker #picker [showSpinners]="true" [showSeconds]="false"
+                [stepHour]="1" [stepMinute]="1" [stepSecond]="1" [touchUi]="false"
+                [enableMeridian]="false">
+                </ngx-mat-datetime-picker>
+            </div>
+            <div class="col-3 fsize right" formGroupName="vessel_details">
+                Voyage Ref: <input type="number"  formControlName="voyage_ref_no" placeholder="Voyage Ref.#" [ngClass]="{
+                    'has-danger': vesselVoyRef.errors?.['required'] && vesselVoyRef.invalid && vesselVoyRef.touched,
+                    'has-success': vesselVoyRef.valid
+                }">
+            </div>
+            <div class="col-3 fsize right" formGroupName="vessel_details">
+                Condition:
+                <select
+                 class="custom-select mb-3"
+                 formControlName="condition" [ngClass]="{
+                    'has-danger': vesselCondition.errors?.['required'] && vesselCondition.invalid && vesselCondition.touched,
+                    'has-success': vesselCondition.valid
+                }">
+                 <option *ngFor="let c of vCond" [ngValue]="c">
+                   {{ c }}
+                 </option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row mx-2 mt-2" formGroupName="voyage_data">
+        <div class="col-6" formGroupName="voyage_options">
+            <div class="row mb-2">
+                <span>VOYAGE OPTIMIZATION OPTION</span>
+            </div>
+            <mat-divider ></mat-divider>
+            <div class="row mt-3">
+                <div class="col-4 fsize">
+                    <input class="voyoptions" type="radio" id="cost" value="voyagecost" name="select_option" formControlName="select_option">  Minimum Voyage Cost (Hire+Bunkers)<br>
+                    <input class="voyoptions" type="radio" id="cost" value="bunkercomp" name="select_option" formControlName="select_option">  Minimum Bunker Consumption<br>
+                    <input class="voyoptions" type="radio" id="cost" value="cpc" name="select_option" formControlName="select_option">  CP Compliance<br>
+                    <input class="voyoptions" type="radio" id="cost" value="eta" name="select_option" formControlName="select_option">  Earlist ETA
+                </div>
+                <div class="col-4 fsize">
+                    <br>
+                    <label for="canceldate">Cancelling Date</label><br>
+                    <label  for="mindays">Minimum days at Sea(if required)</label>
+                </div>
+                <div class="col fsize right">
+                    <div formGroupName="other_info">
+                        <mat-datepicker-toggle matSuffix [for]="$any(picker)" ></mat-datepicker-toggle>
+                        <input id="canceldate" matInput [ngxMatDatetimePicker]="picker" formControlName="cancel_date" placeholder="Enter Date & Time" [max]="maxDate">
+                        <ngx-mat-datetime-picker #picker [showSpinners]="true" [showSeconds]="false"
+                          [stepHour]="1" [stepMinute]="1" [stepSecond]="1" [touchUi]="false"
+                          [enableMeridian]="false">
+                        </ngx-mat-datetime-picker><br>
+                    </div>
+                    
+                    <input id="mindays"  type="number" formControlName="min_days_at_sea" placeholder="Enter Minimum days">
+                </div>
+            </div>
+            <div class="row mt-4 mx-1">
+                <label for="comment">Voyage Options- Additional Remarks</label>
+                
+            </div>
+            <div class="row mx-1">
+                <textarea class="form-control textarea" formControlName="voyage_opt_remarks" rows="2" id="comment" ></textarea>
+                <div class="invalid-feedback">Add some comments.</div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="row mb-2">
+                <span>BUNKER PROCES(USD/MT)</span>
+            </div>
+            <mat-divider ></mat-divider>
+            <div class="row mt-4">
+                <div class="col-6 fsize" formGroupName="fuel_price">
+                    <div *ngFor="let data of Data; let i=index">
+                        <input #checkbox type="checkbox" [value]="data.value" (change)="onCheckboxChange($event)" />
+                          {{data.name}}             
+                    </div>
+                </div>
+                <div class="col-6 fsize right" formGroupName="bunker_price">
+                    <div class="right" formGroupName="fuel_details">
+                        <input id="hsfoprice"   name="hsfoprice"  type="number" formControlName="HSFO"  placeholder="HSFO price"><br>
+                        <input id="lsmgoprice"  name="lsmgoprice" type="number" formControlName="LSMGO" placeholder="LSMGO price"><br>
+                        <input id="vlsfoprice"  name="vlsfoprice" type="number" formControlName="VLSFO" placeholder="VLSFO price"><br>
+                        <input id="ulsfoprice"  name="ulsfoprice" type="number" formControlName="ULSFO" placeholder="ULSFO price">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-6 fsize">
+                    <label class="form-check-label" for="dailyhire">
+                        Daily Hire/ Market value of the Vessel* (USD/ day)
+                    </label><br><br>
+                    <label style="font-size:smaller">*Some description</label>
+                </div>
+                <div class="col-6 fsize right" formGroupName="bunker_price">
+                    <input id="dailyhire"  name="dailyhire" type="number" formControlName="daily_hire_rate" placeholder="Value (USD/day)" [ngClass]="{
+                        'has-danger': dailyHireRate.errors?.['required'] && dailyHireRate.invalid && dailyHireRate.touched,
+                        'has-success': dailyHireRate.valid
+                    }">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mx-2 mt-4" formGroupName="voyage_data">
+        <div class="col-6" formGroupName="routing_priorities">
+            <div class="row mb-2">
+                <span>ROUTING PRIORITY</span>
+            </div>
+            <mat-divider ></mat-divider>
+            <div class="row mt-4" >
+                <div class="col fsize">
+                    <div (change)="onChangeCheck($event)">
+                        <input #checkbox type="checkbox" value="ice"/>Avoid Ice<br><br>
+                        <input #checkbox type="checkbox" value="hraNjwc"/>Avoid HRA And JWC<br><br>
+                        <input #checkbox type="checkbox" value="dobIWL"/>Do Not Break IWL<br><br>
+                        <input #checkbox type="checkbox" value="minFuel"/>Minimum SECA Fuel Cons**<br><br>
+                        <input #checkbox type="checkbox" value="other"/>Other*<br>
+                    </div>
+                    <div class="row mt-2">
+                        <p style="font-size:smaller">*Please provice detauls under remarks column</p><br>
+                        <p style="font-size:smaller">**Only if vessel is running low on LSMGO</p>
+                    </div>
+                </div>
+                <div class="col fsize">
+                    <div class="row mx-1">
+                        <label for="routecomment">Routing Option Remarks</label>
+                        
+                    </div>
+                    <div class="row mx-1">
+                        <textarea class="form-control textarea" formControlName="routing_remarks" rows="8" id="routecomment" ></textarea>
+                        <div class="invalid-feedback">Add some comments.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="row mb-2">
+                <div class="col">
+                    <span>VOYAGE ITINERARY</span>
+                </div>
+                <div class="col">
+                    <button  class="mx-3 button-icon" (click)="addItems()">
+                        <mat-icon >add_circle_outline</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="row mt-4">
+                <div class="col-5">Port</div>
+                <div class="col">Operation</div>
+                <div class="col">Apporx Port Stay (Days)</div>
+            </div>
+            <div formArrayName="voyage_itineary">
+                <div *ngFor="let item of addDynamicElement().controls; let i = index">
+                    <div class="row  mt-2" [formGroupName]="i">
+                        <div class="col-5">
+                            <select
+                            class="custom-select mb-3"
+                            formControlName="port" [ngClass]="{
+                                'has-danger': getPort(i).errors?.['required'] && getPort(i).invalid && getPort(i).touched,
+                                'has-success': getPort(i).valid
+                            }">
+                                <option value="" disabled selected hidden >Please enter 2 or more characters</option>
+                                <option *ngFor="let c of ports" [ngValue]="c">
+                                  {{ c }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <select
+                            class="custom-select mb-3"
+                            formControlName="operation" [ngClass]="{
+                                'has-danger': getOperation(i).errors?.['required'] && getOperation(i).invalid && getOperation(i).touched,
+                                'has-success': getOperation(i).valid
+                            }">
+                                <Option value="" disabled selected hidden>Operation</Option>
+                                <option *ngFor="let c of pOps" [ngValue]="c">
+                                  {{ c }}
+                                </option>
+                            </select> 
+                        </div>
+                        <div class="col">
+                            <input type="number" formControlName="approx_port_stay" placeholder="Approx Port Stay" [ngClass]="{
+                                'has-danger': getStayDates(i).errors?.['required'] && getStayDates(i).invalid && getStayDates(i).touched,
+                                'has-success': getStayDates(i).valid
+                            }">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mx-2 mt-4">
+        <div class="col-6">
+        <div class="row">
+            <span>VOYAGE PERFORMANCE EVALUATION</span>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="row mt-4 mx-1" formGroupName="voyage_data">
+            <textarea class="textarea" formControlName="voyage_perf_eval_text" placeholder="Voyage Perforamce Evaluation" rows="2" id="perfcomment"></textarea>
+        </div>
+    </div>
+    </div>
+    <div class="mx-2 mt-4 button-wrapper">
+        <button type="submit" class="custom-button"  (click)="onSubmit()">Save</button>
+    </div>
+</form>
+
+
+

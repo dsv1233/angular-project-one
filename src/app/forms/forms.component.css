@@ -1,0 +1,77 @@
+.custom-wrapper{
+    text-align: right;
+    padding-right: 20px;
+    padding-top: 20px;
+    background-color: rgb(61, 37, 81);
+}
+.custom-select{
+    background-color: rgb(61, 37, 81);
+    color:white;
+    border-width: 0px 0px 2px;
+    text-align: right;
+}
+*{
+    background-color: rgb(61, 37, 81);
+    color:white;
+    border-width: 0px 0px 2px;
+}
+.custom-vesseldet{
+    padding-top: 20px;
+}
+.fsize{
+    background-color: rgb(61, 37, 81); 
+    color:white; 
+    font-size: small;
+}
+.right{
+    text-align: right;
+}
+.textarea{
+    border-width: 2px;
+    background-color: rgba(210, 195, 195, 0.099);
+}
+.button-icon{
+    float: right;
+    height:10px !important;
+    width:10px !important;
+    line-height: 16px !important; 
+}
+.errorm{
+    color:rgba(255, 0, 0, 0.822);
+}
+.button-wrapper{
+    text-align: right;
+    padding-right: 20px;
+    padding-top: 20px;
+    background-color: rgb(61, 37, 81);
+}
+.custom-button{
+    background-color: rgb(61, 37, 81);
+    color:white;
+    border-width: 2px;
+    text-align: right;
+    border-color: white;
+}
+.voyoptions{
+    visibility: visible;
+    border: 2px solid white;
+}
+
+mat-divider{
+    border-top-color: white;
+}
+
+span{
+    color: rgb(187, 159, 18);
+}
+
+.formselect{
+    color:white; 
+    border-width: 0px;
+}
+.has-danger{
+    border-color: red;
+}
+.has-success{
+    border-color: white;
+}
